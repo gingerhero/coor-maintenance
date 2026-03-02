@@ -20,13 +20,13 @@ ALTER TABLE swap_requests ENABLE ROW LEVEL SECURITY;
 ALTER TABLE notifications ENABLE ROW LEVEL SECURITY;
 
 -- Helper function: get current user's role
-CREATE OR REPLACE FUNCTION auth.user_role()
+CREATE OR REPLACE FUNCTION public.user_role()
 RETURNS user_role AS $$
   SELECT role FROM profiles WHERE id = auth.uid()
 $$ LANGUAGE sql SECURITY DEFINER STABLE;
 
 -- Helper function: check if user is admin or manager
-CREATE OR REPLACE FUNCTION auth.is_manager_or_admin()
+CREATE OR REPLACE FUNCTION public.is_manager_or_admin()
 RETURNS boolean AS $$
   SELECT role IN ('manager', 'admin') FROM profiles WHERE id = auth.uid()
 $$ LANGUAGE sql SECURITY DEFINER STABLE;
@@ -40,7 +40,7 @@ CREATE POLICY "Users can view own profile"
 
 CREATE POLICY "Managers/admins can view all profiles"
   ON profiles FOR SELECT
-  USING (auth.is_manager_or_admin());
+  USING (public.is_manager_or_admin());
 
 CREATE POLICY "Users can update own profile"
   ON profiles FOR UPDATE
@@ -49,7 +49,7 @@ CREATE POLICY "Users can update own profile"
 
 CREATE POLICY "Admins can manage profiles"
   ON profiles FOR ALL
-  USING (auth.user_role() = 'admin');
+  USING (public.user_role() = 'admin');
 
 -- ========================================
 -- NS 3451 CODES (read-only for all, write for admins)
@@ -60,7 +60,7 @@ CREATE POLICY "Anyone authenticated can read NS 3451 codes"
 
 CREATE POLICY "Admins can manage NS 3451 codes"
   ON ns3451_codes FOR ALL
-  USING (auth.user_role() = 'admin');
+  USING (public.user_role() = 'admin');
 
 -- ========================================
 -- PROPERTIES
@@ -79,7 +79,7 @@ CREATE POLICY "Janitors see assigned properties"
 
 CREATE POLICY "Managers/admins see all active properties"
   ON properties FOR SELECT
-  USING (auth.is_manager_or_admin());
+  USING (public.is_manager_or_admin());
 
 CREATE POLICY "Customers see own properties"
   ON properties FOR SELECT
@@ -93,14 +93,14 @@ CREATE POLICY "Customers see own properties"
 
 CREATE POLICY "Managers/admins can manage properties"
   ON properties FOR ALL
-  USING (auth.is_manager_or_admin());
+  USING (public.is_manager_or_admin());
 
 -- ========================================
 -- CUSTOMERS
 -- ========================================
 CREATE POLICY "Managers/admins can view all customers"
   ON customers FOR SELECT
-  USING (auth.is_manager_or_admin());
+  USING (public.is_manager_or_admin());
 
 CREATE POLICY "Customer users can view own customer org"
   ON customers FOR SELECT
@@ -114,7 +114,7 @@ CREATE POLICY "Customer users can view own customer org"
 
 CREATE POLICY "Admins can manage customers"
   ON customers FOR ALL
-  USING (auth.user_role() = 'admin');
+  USING (public.user_role() = 'admin');
 
 -- ========================================
 -- ASSIGNMENTS
@@ -141,7 +141,7 @@ CREATE POLICY "Janitors can update own assignments (check-in/out)"
 
 CREATE POLICY "Managers/admins can manage all assignments"
   ON assignments FOR ALL
-  USING (auth.is_manager_or_admin());
+  USING (public.is_manager_or_admin());
 
 -- ========================================
 -- ASSIGNMENT_JANITORS
@@ -152,7 +152,7 @@ CREATE POLICY "Janitors see own assignment links"
 
 CREATE POLICY "Managers/admins manage assignment links"
   ON assignment_janitors FOR ALL
-  USING (auth.is_manager_or_admin());
+  USING (public.is_manager_or_admin());
 
 -- ========================================
 -- INSTRUCTIONS
@@ -171,7 +171,7 @@ CREATE POLICY "Janitors read instructions for assigned properties"
 
 CREATE POLICY "Managers/admins manage all instructions"
   ON instructions FOR ALL
-  USING (auth.is_manager_or_admin());
+  USING (public.is_manager_or_admin());
 
 -- ========================================
 -- TASK EXECUTIONS
@@ -186,7 +186,7 @@ CREATE POLICY "Janitors can view own executions"
 
 CREATE POLICY "Managers/admins can view all executions"
   ON task_executions FOR SELECT
-  USING (auth.is_manager_or_admin());
+  USING (public.is_manager_or_admin());
 
 -- ========================================
 -- AVVIK
@@ -201,7 +201,7 @@ CREATE POLICY "Janitors can view avvik they reported"
 
 CREATE POLICY "Managers/admins can manage all avvik"
   ON avvik FOR ALL
-  USING (auth.is_manager_or_admin());
+  USING (public.is_manager_or_admin());
 
 CREATE POLICY "Customers can view avvik for their properties"
   ON avvik FOR SELECT
@@ -223,7 +223,7 @@ CREATE POLICY "Authors can insert comments"
 
 CREATE POLICY "Managers/admins can view all comments"
   ON avvik_comments FOR SELECT
-  USING (auth.is_manager_or_admin());
+  USING (public.is_manager_or_admin());
 
 CREATE POLICY "Customers see customer-visible comments"
   ON avvik_comments FOR SELECT
@@ -251,7 +251,7 @@ CREATE POLICY "Users can view photos they uploaded"
 
 CREATE POLICY "Managers/admins can view all photos"
   ON photos FOR SELECT
-  USING (auth.is_manager_or_admin());
+  USING (public.is_manager_or_admin());
 
 -- ========================================
 -- TIME LOGS
@@ -270,7 +270,7 @@ CREATE POLICY "Janitors update own draft time logs"
 
 CREATE POLICY "Managers/admins manage all time logs"
   ON time_logs FOR ALL
-  USING (auth.is_manager_or_admin());
+  USING (public.is_manager_or_admin());
 
 -- ========================================
 -- ROSTER ENTRIES
@@ -281,7 +281,7 @@ CREATE POLICY "Janitors view own roster entries"
 
 CREATE POLICY "Managers/admins manage all roster entries"
   ON roster_entries FOR ALL
-  USING (auth.is_manager_or_admin());
+  USING (public.is_manager_or_admin());
 
 -- ========================================
 -- SWAP REQUESTS
@@ -296,7 +296,7 @@ CREATE POLICY "Janitors view own swap requests"
 
 CREATE POLICY "Managers/admins manage all swap requests"
   ON swap_requests FOR ALL
-  USING (auth.is_manager_or_admin());
+  USING (public.is_manager_or_admin());
 
 -- ========================================
 -- NOTIFICATIONS
