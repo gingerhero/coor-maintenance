@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { signIn } from '@/features/auth/hooks/useAuth'
 import { getRoleHomePath } from '@/features/auth/components/RequireAuth'
 import { useAuthStore } from '@/stores/authStore'
+import { supabase } from '@/lib/supabase'
+import type { Profile } from '@/types/database'
 
 export function LoginPage() {
   const { t } = useTranslation('auth')
@@ -21,16 +23,28 @@ export function LoginPage() {
 
     try {
       await signIn(email, password)
-      // Wait for auth state to update and profile to load
-      const checkProfile = () => {
-        const profile = useAuthStore.getState().profile
-        if (profile) {
-          navigate(getRoleHomePath(profile.role), { replace: true })
-        } else {
-          setTimeout(checkProfile, 100)
-        }
+
+      // Fetch profile directly instead of waiting for the auth listener
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session?.user) {
+        setError(t('invalidCredentials'))
+        setLoading(false)
+        return
       }
-      checkProfile()
+
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', session.user.id)
+        .single()
+
+      if (profile) {
+        useAuthStore.getState().setProfile(profile as Profile)
+        navigate(getRoleHomePath((profile as Profile).role), { replace: true })
+      } else {
+        setError(t('invalidCredentials'))
+        setLoading(false)
+      }
     } catch {
       setError(t('invalidCredentials'))
       setLoading(false)
