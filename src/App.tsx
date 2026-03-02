@@ -17,6 +17,7 @@ import { LoginPage } from '@/features/auth/pages/LoginPage'
 import { JanitorHomePage } from '@/features/janitor/pages/HomePage'
 import { JanitorHistoryPage } from '@/features/janitor/pages/HistoryPage'
 import { VisitPage } from '@/features/janitor/pages/VisitPage'
+import { ChecklistPage } from '@/features/janitor/pages/ChecklistPage'
 
 // Manager pages
 import { ManagerDashboardPage } from '@/features/manager/pages/DashboardPage'
@@ -55,6 +56,7 @@ function AppRoutes() {
         <Route element={<JanitorLayout />}>
           <Route path="/janitor" element={<JanitorHomePage />} />
           <Route path="/janitor/visit/:id" element={<VisitPage />} />
+          <Route path="/janitor/visit/:id/checklist" element={<ChecklistPage />} />
           <Route path="/janitor/history" element={<JanitorHistoryPage />} />
           <Route path="/janitor/avvik" element={<PlaceholderPage title="Avvik" />} />
           <Route path="/janitor/time" element={<PlaceholderPage title="Tidsforbruk" />} />
