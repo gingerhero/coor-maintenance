@@ -212,16 +212,18 @@ export function useChecklist(
       currentSeason,
     })
 
-    // Only include tasks that are due (filter out off-season / not-yet-due).
-    const dueItems = dueTasks
-      .filter((dt) => dt.isDue)
-      .map((dt) => buildChecklistItem(dt, executionsByInstruction))
+    // Include all instructions so the janitor sees the full checklist.
+    // The due-date engine info is kept for display purposes (badges, etc.)
+    // but does not hide tasks from the list.
+    const allItems = dueTasks.map((dt) =>
+      buildChecklistItem(dt, executionsByInstruction),
+    )
 
     // Group by NS 3451 top-level code.
-    const groups = groupByNS3451(dueItems)
+    const groups = groupByNS3451(allItems)
 
-    const totalTasks = dueItems.length
-    const completedTasks = dueItems.filter(
+    const totalTasks = allItems.length
+    const completedTasks = allItems.filter(
       (i) => i.isCompleted || i.isSkipped,
     ).length
 

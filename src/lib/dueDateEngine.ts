@@ -252,14 +252,15 @@ export function calculateDueTasks(options: DueDateOptions): DueTask[] {
       instruction.frequency_interval,
     )
 
-    // If never completed before, it's due now.
+    // If never completed before, it's due now — but not "overdue" since
+    // there's no prior schedule to be behind on.
     if (!lastCompletedDate) {
       return {
         instruction,
         isDue: true,
-        isOverdue: true,
+        isOverdue: false,
         lastCompleted: null,
-        nextDue: null, // unknown — never been done
+        nextDue: null,
         reason: `${getFrequencyLabel(instruction)} (aldri utført)`,
       }
     }

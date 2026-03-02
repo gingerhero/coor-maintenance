@@ -13,5 +13,12 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     persistSession: true,
     autoRefreshToken: true,
+    // Bypass navigator.locks which deadlocks in React StrictMode.
+    // StrictMode double-mounts cause multiple getSession() calls that
+    // queue on the same lock and never resolve. A no-op lock is safe
+    // for a single-tab PWA.
+    lock: async (_name: string, _acquireTimeout: number, fn: () => Promise<unknown>) => {
+      return await fn()
+    },
   },
 })

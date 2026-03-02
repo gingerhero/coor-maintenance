@@ -17,44 +17,40 @@ async function fetchProfile(userId: string): Promise<Profile | null> {
   return data as Profile
 }
 
+// ---------------------------------------------------------------------------
+// Module-level session initialization
+// ---------------------------------------------------------------------------
+// Runs once at import time, outside React's lifecycle. Both StrictMode
+// mounts .then() on the same promise — no duplicate getSession() calls.
+const authReady = supabase.auth
+  .getSession()
+  .then(async ({ data: { session } }) => {
+    if (!session?.user) return null
+    return fetchProfile(session.user.id)
+  })
+  .catch(() => null)
+
 export function useAuth() {
   const { profile, isLoading, setProfile, setLoading, reset } = useAuthStore()
 
   useEffect(() => {
     let mounted = true
 
-    // Use getSession as the primary initialization method.
-    // This avoids StrictMode race conditions with onAuthStateChange's
-    // INITIAL_SESSION event (which may resolve after the first mount is torn down).
-    async function init() {
-      try {
-        const { data: { session } } = await supabase.auth.getSession()
+    // Read the module-level session result (already resolved or nearly so).
+    authReady.then((profile) => {
+      if (mounted) setProfile(profile)
+    })
 
-        if (!mounted) return
-
-        if (!session?.user) {
-          setProfile(null)
-          return
-        }
-
-        const profile = await fetchProfile(session.user.id)
-        if (mounted) setProfile(profile)
-      } catch {
-        if (mounted) setProfile(null)
-      }
-    }
-
-    init()
-
-    // Listen for subsequent auth changes (sign in, sign out, token refresh)
+    // Listen for subsequent auth changes (sign in, sign out, token refresh).
+    // Skip INITIAL_SESSION since authReady handles initialization above.
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
-      // Skip INITIAL_SESSION — we handle that via getSession() above
       if (event === 'INITIAL_SESSION') return
+      if (!mounted) return
 
       if (event === 'SIGNED_OUT' || !session?.user) {
-        if (mounted) reset()
+        reset()
         return
       }
 
