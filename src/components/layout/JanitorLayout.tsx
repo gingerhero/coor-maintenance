@@ -1,6 +1,6 @@
 import { Outlet, NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Home, Clock, AlertTriangle, History } from 'lucide-react'
+import { Home, Clock, AlertTriangle, History, User } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export function JanitorLayout() {
