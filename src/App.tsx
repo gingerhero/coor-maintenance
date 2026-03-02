@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { queryClient } from '@/lib/query-client'
 import { useAuth } from '@/features/auth/hooks/useAuth'
 import { RequireAuth, getRoleHomePath } from '@/features/auth/components/RequireAuth'
 import { useAuthStore } from '@/stores/authStore'
@@ -21,15 +22,6 @@ import { ManagerDashboardPage } from '@/features/manager/pages/DashboardPage'
 
 // Customer pages
 import { CustomerDashboardPage } from '@/features/customer/pages/DashboardPage'
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
-      retry: 1,
-    },
-  },
-})
 
 function AppRoutes() {
   useAuth()

@@ -3,6 +3,9 @@ import { createRoot } from 'react-dom/client'
 import '@/i18n'
 import '@/styles/globals.css'
 import App from '@/App'
+import { registerServiceWorker } from '@/lib/register-sw'
+
+registerServiceWorker()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
