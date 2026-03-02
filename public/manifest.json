@@ -1,0 +1,21 @@
+{
+  "name": "Coor Eiendomsservice",
+  "short_name": "Coor",
+  "description": "Coor vedlikeholdsapp for eiendomsservice",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#0066B3",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/coor_logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "lang": "nb",
+  "dir": "ltr",
+  "categories": ["business", "productivity"]
+}

@@ -1,0 +1,57 @@
+{
+  "dashboard": {
+    "title": "Oversikt",
+    "properties": "Eiendommer",
+    "completionRate": "Fullføringsgrad",
+    "hoursUsed": "Timer brukt",
+    "hoursBudgeted": "Timer budsjettert",
+    "openAvvik": "Åpne avvik",
+    "staffingGaps": "Bemanningshull"
+  },
+  "property": {
+    "title": "Eiendom",
+    "details": "Detaljer",
+    "history": "Historikk",
+    "instructions": "Instrukser",
+    "avvik": "Avvik",
+    "timeLog": "Tidsforbruk",
+    "roster": "Bemanning"
+  },
+  "instructions": {
+    "title": "Driftsinstrukser",
+    "editor": "Instrukseditor",
+    "import": "Importer",
+    "importMarkdown": "Importer fra Markdown",
+    "publish": "Publiser ny versjon",
+    "version": "Versjon",
+    "newVersion": "Ny driftsinstruks",
+    "changelog": "Endringslogg",
+    "preview": "Forhåndsvis"
+  },
+  "avvikInbox": {
+    "title": "Avvik-innboks",
+    "comment": "Kommentar",
+    "resolve": "Marker som løst",
+    "notifyCustomer": "Varsle kunde"
+  },
+  "roster": {
+    "title": "Bemanningsark",
+    "assign": "Tildel eiendom",
+    "swapRequests": "Bytteforespørsler",
+    "approve": "Godkjenn",
+    "reject": "Avslå",
+    "sickLeave": "Sykefravær"
+  },
+  "timesheets": {
+    "title": "Timelister",
+    "approve": "Godkjenn",
+    "export": "Eksporter til Excel"
+  },
+  "reports": {
+    "title": "Rapporter",
+    "completion": "Fullføring per NS 3451",
+    "profitability": "Lønnsomhet",
+    "avvikHeatmap": "Avvik-oversikt",
+    "photoGallery": "Bildegalleri"
+  }
+}

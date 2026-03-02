@@ -1,0 +1,76 @@
+{
+  "home": {
+    "title": "Mine oppdrag",
+    "today": "I dag",
+    "upcoming": "Kommende",
+    "estimatedHours": "Estimerte timer",
+    "noAssignments": "Ingen oppdrag i dag"
+  },
+  "visit": {
+    "checkIn": "Sjekk inn",
+    "checkOut": "Sjekk ut",
+    "checkedIn": "Innsjekket",
+    "addNote": "Legg til notat",
+    "timer": "Tidtaker",
+    "startTimer": "Start tidtaker",
+    "stopTimer": "Stopp tidtaker",
+    "actualTime": "Faktisk tid",
+    "budgetedTime": "Budsjettert tid",
+    "minutes": "minutter",
+    "hours": "timer"
+  },
+  "checklist": {
+    "title": "Sjekkliste",
+    "tasksRemaining": "{{count}} oppgaver gjenstår",
+    "allCompleted": "Alle oppgaver fullført",
+    "overdue": "Forfalt",
+    "done": "Utført",
+    "skip": "Hopp over",
+    "avvikFound": "Avvik oppdaget",
+    "photoRequired": "Bilde påkrevd",
+    "noAvvikConfirmed": "Ingen avvik observert"
+  },
+  "skip": {
+    "title": "Hopp over oppgave",
+    "reason": "Årsak",
+    "notAccessible": "Ikke tilgjengelig",
+    "notNecessary": "Ikke nødvendig nå",
+    "lackedMaterials": "Manglet materiell",
+    "other": "Annet",
+    "note": "Tilleggsinformasjon",
+    "notePlaceholder": "Beskriv hvorfor oppgaven hoppes over..."
+  },
+  "checkout": {
+    "title": "Sjekk ut",
+    "summary": "Oppsummering",
+    "tasksDone": "Oppgaver utført",
+    "tasksSkipped": "Oppgaver hoppet over",
+    "avvikReported": "Avvik rapportert",
+    "timeSpent": "Tid brukt",
+    "vsBudget": "vs. budsjett",
+    "incompleteTasks": "Ufullførte oppgaver",
+    "incompleteMessage": "Følgende oppgaver er ikke fullført:",
+    "goBack": "Gå tilbake",
+    "skipWithReason": "Hopp over med grunn",
+    "confirmSubmit": "Godkjenn og send inn",
+    "submitted": "Besøk registrert"
+  },
+  "history": {
+    "title": "Historikk",
+    "pastVisits": "Tidligere besøk",
+    "noHistory": "Ingen besøkshistorikk"
+  },
+  "avvik": {
+    "title": "Rapporter avvik",
+    "new": "Nytt avvik",
+    "location": "Plassering (rom/etasje)",
+    "locationPlaceholder": "F.eks. 2. etasje, trapperom",
+    "description": "Beskrivelse",
+    "descriptionPlaceholder": "Beskriv avviket...",
+    "severity": "Alvorlighetsgrad",
+    "photo": "Ta bilde",
+    "photoMandatory": "Bilde er påkrevd for høy alvorlighetsgrad",
+    "notifyBoard": "Varsle styret",
+    "submitted": "Avvik rapportert"
+  }
+}

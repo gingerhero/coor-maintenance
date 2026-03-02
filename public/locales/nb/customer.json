@@ -1,0 +1,24 @@
+{
+  "dashboard": {
+    "title": "Mine eiendommer",
+    "lastVisit": "Siste besøk",
+    "completionRate": "Fullføringsgrad"
+  },
+  "property": {
+    "title": "Eiendom",
+    "visitSummary": "Besøksoppsummering",
+    "completionByCategory": "Fullføring per kategori"
+  },
+  "avvik": {
+    "title": "Avvik",
+    "open": "Åpne avvik",
+    "resolved": "Løste avvik",
+    "timeline": "Tidslinje",
+    "reportedOn": "Rapportert",
+    "resolvedOn": "Løst"
+  },
+  "reports": {
+    "downloadPdf": "Last ned PDF-rapport",
+    "monthlySummary": "Månedlig oppsummering"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "dashboard": {
+    "title": "My Properties",
+    "lastVisit": "Last visit",
+    "completionRate": "Completion rate"
+  },
+  "property": {
+    "title": "Property",
+    "visitSummary": "Visit summary",
+    "completionByCategory": "Completion by category"
+  },
+  "avvik": {
+    "title": "Discrepancies",
+    "open": "Open discrepancies",
+    "resolved": "Resolved discrepancies",
+    "timeline": "Timeline",
+    "reportedOn": "Reported on",
+    "resolvedOn": "Resolved on"
+  },
+  "reports": {
+    "downloadPdf": "Download PDF report",
+    "monthlySummary": "Monthly summary"
+  }
+}

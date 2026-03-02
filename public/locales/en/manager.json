@@ -1,0 +1,57 @@
+{
+  "dashboard": {
+    "title": "Overview",
+    "properties": "Properties",
+    "completionRate": "Completion rate",
+    "hoursUsed": "Hours used",
+    "hoursBudgeted": "Hours budgeted",
+    "openAvvik": "Open discrepancies",
+    "staffingGaps": "Staffing gaps"
+  },
+  "property": {
+    "title": "Property",
+    "details": "Details",
+    "history": "History",
+    "instructions": "Instructions",
+    "avvik": "Discrepancies",
+    "timeLog": "Time log",
+    "roster": "Staffing"
+  },
+  "instructions": {
+    "title": "Maintenance instructions",
+    "editor": "Instruction editor",
+    "import": "Import",
+    "importMarkdown": "Import from Markdown",
+    "publish": "Publish new version",
+    "version": "Version",
+    "newVersion": "New maintenance instruction",
+    "changelog": "Changelog",
+    "preview": "Preview"
+  },
+  "avvikInbox": {
+    "title": "Discrepancy inbox",
+    "comment": "Comment",
+    "resolve": "Mark as resolved",
+    "notifyCustomer": "Notify customer"
+  },
+  "roster": {
+    "title": "Staffing roster",
+    "assign": "Assign property",
+    "swapRequests": "Swap requests",
+    "approve": "Approve",
+    "reject": "Reject",
+    "sickLeave": "Sick leave"
+  },
+  "timesheets": {
+    "title": "Timesheets",
+    "approve": "Approve",
+    "export": "Export to Excel"
+  },
+  "reports": {
+    "title": "Reports",
+    "completion": "Completion by NS 3451",
+    "profitability": "Profitability",
+    "avvikHeatmap": "Discrepancy overview",
+    "photoGallery": "Photo gallery"
+  }
+}

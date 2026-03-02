@@ -1,0 +1,76 @@
+{
+  "home": {
+    "title": "My Assignments",
+    "today": "Today",
+    "upcoming": "Upcoming",
+    "estimatedHours": "Estimated hours",
+    "noAssignments": "No assignments today"
+  },
+  "visit": {
+    "checkIn": "Check in",
+    "checkOut": "Check out",
+    "checkedIn": "Checked in",
+    "addNote": "Add note",
+    "timer": "Timer",
+    "startTimer": "Start timer",
+    "stopTimer": "Stop timer",
+    "actualTime": "Actual time",
+    "budgetedTime": "Budgeted time",
+    "minutes": "minutes",
+    "hours": "hours"
+  },
+  "checklist": {
+    "title": "Checklist",
+    "tasksRemaining": "{{count}} tasks remaining",
+    "allCompleted": "All tasks completed",
+    "overdue": "Overdue",
+    "done": "Done",
+    "skip": "Skip",
+    "avvikFound": "Discrepancy found",
+    "photoRequired": "Photo required",
+    "noAvvikConfirmed": "No discrepancy observed"
+  },
+  "skip": {
+    "title": "Skip task",
+    "reason": "Reason",
+    "notAccessible": "Not accessible",
+    "notNecessary": "Not necessary now",
+    "lackedMaterials": "Lacked materials",
+    "other": "Other",
+    "note": "Additional information",
+    "notePlaceholder": "Describe why the task is being skipped..."
+  },
+  "checkout": {
+    "title": "Check out",
+    "summary": "Summary",
+    "tasksDone": "Tasks completed",
+    "tasksSkipped": "Tasks skipped",
+    "avvikReported": "Discrepancies reported",
+    "timeSpent": "Time spent",
+    "vsBudget": "vs. budget",
+    "incompleteTasks": "Incomplete tasks",
+    "incompleteMessage": "The following tasks are not completed:",
+    "goBack": "Go back",
+    "skipWithReason": "Skip with reason",
+    "confirmSubmit": "Approve and submit",
+    "submitted": "Visit recorded"
+  },
+  "history": {
+    "title": "History",
+    "pastVisits": "Past visits",
+    "noHistory": "No visit history"
+  },
+  "avvik": {
+    "title": "Report discrepancy",
+    "new": "New discrepancy",
+    "location": "Location (room/floor)",
+    "locationPlaceholder": "E.g. 2nd floor, stairwell",
+    "description": "Description",
+    "descriptionPlaceholder": "Describe the discrepancy...",
+    "severity": "Severity",
+    "photo": "Take photo",
+    "photoMandatory": "Photo is required for high severity",
+    "notifyBoard": "Notify the board",
+    "submitted": "Discrepancy reported"
+  }
+}
