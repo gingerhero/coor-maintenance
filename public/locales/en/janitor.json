@@ -94,7 +94,50 @@
   "history": {
     "title": "History",
     "pastVisits": "Past visits",
-    "noHistory": "No visit history"
+    "noHistory": "No visit history yet",
+    "noHistoryDescription": "Completed visits will appear here",
+    "tasks": "tasks",
+    "avvik": "discrepancies",
+    "checkinNote": "Check-in note",
+    "checkoutNote": "Check-out note",
+    "tasksDone": "Completed",
+    "tasksSkipped": "Skipped"
+  },
+  "profile": {
+    "title": "My Profile",
+    "role": "Role",
+    "phone": "Phone",
+    "email": "Email",
+    "preferences": "Preferences",
+    "gpsConsent": "GPS Consent",
+    "gpsConsentDescription": "Allow GPS positioning during check-in and tasks",
+    "photoConsent": "Photo Consent",
+    "photoConsentDescription": "Allow storage of photos",
+    "consentGiven": "Consent given",
+    "noConsent": "Not given",
+    "signOut": "Sign out",
+    "signOutConfirm": "Are you sure you want to sign out?"
+  },
+  "time": {
+    "title": "Time Tracking",
+    "thisWeek": "This week",
+    "weekOf": "Week {{week}}",
+    "totalHours": "Total hours",
+    "budgetedHours": "Budgeted hours",
+    "noLogs": "No time logged this week",
+    "addManual": "Log time manually",
+    "property": "Property",
+    "date": "Date",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "note": "Note",
+    "notePlaceholder": "Optional note...",
+    "submit": "Submit",
+    "status": {
+      "draft": "Draft",
+      "submitted": "Submitted",
+      "approved": "Approved"
+    }
   },
   "avvik": {
     "title": "Report discrepancy",

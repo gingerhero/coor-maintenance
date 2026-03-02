@@ -94,7 +94,50 @@
   "history": {
     "title": "Historikk",
     "pastVisits": "Tidligere besøk",
-    "noHistory": "Ingen besøkshistorikk"
+    "noHistory": "Ingen besøkshistorikk ennå",
+    "noHistoryDescription": "Fullførte besøk vil vises her",
+    "tasks": "oppgaver",
+    "avvik": "avvik",
+    "checkinNote": "Innsjekk-notat",
+    "checkoutNote": "Utsjekknotat",
+    "tasksDone": "Utført",
+    "tasksSkipped": "Hoppet over"
+  },
+  "profile": {
+    "title": "Min profil",
+    "role": "Rolle",
+    "phone": "Telefon",
+    "email": "E-post",
+    "preferences": "Innstillinger",
+    "gpsConsent": "GPS-samtykke",
+    "gpsConsentDescription": "Tillat GPS-posisjonering ved innsjekk og oppgaver",
+    "photoConsent": "Fotosamtykke",
+    "photoConsentDescription": "Tillat lagring av bilder",
+    "consentGiven": "Samtykke gitt",
+    "noConsent": "Ikke gitt",
+    "signOut": "Logg ut",
+    "signOutConfirm": "Er du sikker på at du vil logge ut?"
+  },
+  "time": {
+    "title": "Tidsforbruk",
+    "thisWeek": "Denne uken",
+    "weekOf": "Uke {{week}}",
+    "totalHours": "Timer totalt",
+    "budgetedHours": "Budsjetterte timer",
+    "noLogs": "Ingen tid registrert denne uken",
+    "addManual": "Registrer tid manuelt",
+    "property": "Eiendom",
+    "date": "Dato",
+    "hours": "Timer",
+    "minutes": "Minutter",
+    "note": "Notat",
+    "notePlaceholder": "Valgfritt notat...",
+    "submit": "Registrer",
+    "status": {
+      "draft": "Kladd",
+      "submitted": "Sendt",
+      "approved": "Godkjent"
+    }
   },
   "avvik": {
     "title": "Rapporter avvik",
