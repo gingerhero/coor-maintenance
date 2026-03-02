@@ -4,7 +4,13 @@
     "today": "I dag",
     "upcoming": "Kommende",
     "estimatedHours": "Estimerte timer",
-    "noAssignments": "Ingen oppdrag i dag"
+    "noAssignments": "Ingen oppdrag i dag",
+    "status": {
+      "scheduled": "Planlagt",
+      "inProgress": "Pågår",
+      "completed": "Fullført",
+      "cancelled": "Kansellert"
+    }
   },
   "visit": {
     "checkIn": "Sjekk inn",

@@ -179,6 +179,106 @@ async function main() {
     console.log('  Linked customer user to Poppelhagen Sameie')
   }
 
+  // ---- Instructions (tasks per property) ----
+  console.log('\nSeeding instructions...')
+
+  const instructions = [
+    // Poppelhagen 1-3 (property 1) — weekly tasks
+    { property_id: 'b0000000-0000-0000-0000-000000000001', ns3451_code: '76', description: 'Feie gangveier og inngangspartier', frequency_type: 'every_visit', frequency_interval: 1, season: 'none' },
+    { property_id: 'b0000000-0000-0000-0000-000000000001', ns3451_code: '711', description: 'Sjekk plener og beplantning', frequency_type: 'weekly', frequency_interval: 1, season: 'summer' },
+    { property_id: 'b0000000-0000-0000-0000-000000000001', ns3451_code: '762', description: 'Sjekk parkeringsplasser for skader', frequency_type: 'weekly', frequency_interval: 1, season: 'none' },
+    { property_id: 'b0000000-0000-0000-0000-000000000001', ns3451_code: '442', description: 'Sjekk utvendig belysning', frequency_type: 'weekly', frequency_interval: 1, season: 'none' },
+    { property_id: 'b0000000-0000-0000-0000-000000000001', ns3451_code: '332', description: 'Kontroller brannslukningsapparat', frequency_type: 'monthly', frequency_interval: 1, season: 'none', photo_required: true, notify_board: true },
+    { property_id: 'b0000000-0000-0000-0000-000000000001', ns3451_code: '262', description: 'Sjekk takrenner og nedløp', frequency_type: 'quarterly', frequency_interval: 1, season: 'none' },
+    { property_id: 'b0000000-0000-0000-0000-000000000001', ns3451_code: '631', description: 'Heis - visuell inspeksjon', frequency_type: 'monthly', frequency_interval: 1, season: 'none', photo_required: true, notify_board: true },
+    { property_id: 'b0000000-0000-0000-0000-000000000001', ns3451_code: '361', description: 'Sjekk ventilasjon og filter', frequency_type: 'quarterly', frequency_interval: 1, season: 'none' },
+    { property_id: 'b0000000-0000-0000-0000-000000000001', ns3451_code: '281', description: 'Sjekk ytterdører og låser', frequency_type: 'monthly', frequency_interval: 1, season: 'none' },
+    { property_id: 'b0000000-0000-0000-0000-000000000001', ns3451_code: '441', description: 'Sjekk innvendig belysning fellesarealer', frequency_type: 'every_visit', frequency_interval: 1, season: 'none' },
+    // Bjørklia Terrasse (property 2)
+    { property_id: 'b0000000-0000-0000-0000-000000000002', ns3451_code: '76', description: 'Feie gangveier', frequency_type: 'every_visit', frequency_interval: 1, season: 'none' },
+    { property_id: 'b0000000-0000-0000-0000-000000000002', ns3451_code: '711', description: 'Vedlikehold plener', frequency_type: 'weekly', frequency_interval: 1, season: 'summer' },
+    { property_id: 'b0000000-0000-0000-0000-000000000002', ns3451_code: '332', description: 'Kontroller brannslukningsapparat', frequency_type: 'monthly', frequency_interval: 1, season: 'none', photo_required: true },
+    { property_id: 'b0000000-0000-0000-0000-000000000002', ns3451_code: '442', description: 'Sjekk utvendig belysning', frequency_type: 'weekly', frequency_interval: 1, season: 'none' },
+    // Sentrum Næringspark (property 3)
+    { property_id: 'b0000000-0000-0000-0000-000000000003', ns3451_code: '76', description: 'Rengjøring inngangsparti og fellesareal', frequency_type: 'every_visit', frequency_interval: 1, season: 'none' },
+    { property_id: 'b0000000-0000-0000-0000-000000000003', ns3451_code: '631', description: 'Heis - daglig sjekk', frequency_type: 'every_visit', frequency_interval: 1, season: 'none', notify_board: true },
+    { property_id: 'b0000000-0000-0000-0000-000000000003', ns3451_code: '331', description: 'Kontroller sprinkleranlegg', frequency_type: 'monthly', frequency_interval: 1, season: 'none', photo_required: true, notify_board: true },
+    { property_id: 'b0000000-0000-0000-0000-000000000003', ns3451_code: '441', description: 'Sjekk innvendig belysning', frequency_type: 'weekly', frequency_interval: 1, season: 'none' },
+  ].map(instr => ({ ...instr, is_active: true, version: 1 }))
+
+  const { error: instrErr } = await supabase
+    .from('instructions')
+    .upsert(instructions, { onConflict: 'id' })
+  if (instrErr) console.error('  Instruction insert error:', instrErr.message)
+  else console.log(`  ${instructions.length} instructions inserted (10 prop1, 4 prop2, 4 prop3)`)
+
+  // ---- Assignments (scheduled visits) ----
+  console.log('\nSeeding assignments...')
+
+  if (janitorProfile) {
+    const today = new Date()
+    const propertySchedule = [
+      { property_id: 'b0000000-0000-0000-0000-000000000001', days: [1, 3, 5] }, // Mon, Wed, Fri
+      { property_id: 'b0000000-0000-0000-0000-000000000002', days: [2, 4] },     // Tue, Thu
+      { property_id: 'b0000000-0000-0000-0000-000000000003', days: [1, 2, 3, 4, 5] }, // Every weekday
+    ]
+
+    const assignmentRows = []
+    for (let dayOffset = -2; dayOffset <= 7; dayOffset++) {
+      const date = new Date(today)
+      date.setDate(date.getDate() + dayOffset)
+      const dayOfWeek = date.getDay() // 0=Sun, 1=Mon...
+
+      for (const schedule of propertySchedule) {
+        if (schedule.days.includes(dayOfWeek)) {
+          const row = {
+            property_id: schedule.property_id,
+            scheduled_date: date.toISOString().split('T')[0],
+            scheduled_start: '08:00',
+            scheduled_end: '12:00',
+            status: dayOffset < 0 ? 'completed' : 'scheduled',
+          }
+          // For past days, simulate check-in/out
+          if (dayOffset < 0) {
+            const checkinDate = new Date(date)
+            checkinDate.setHours(8, 5, 0, 0)
+            const checkoutDate = new Date(date)
+            checkoutDate.setHours(11, 45, 0, 0)
+            row.checkin_at = checkinDate.toISOString()
+            row.checkout_at = checkoutDate.toISOString()
+            row.checkin_lat = 59.9265
+            row.checkin_lng = 10.7897
+            row.actual_minutes = 220
+          }
+          assignmentRows.push(row)
+        }
+      }
+    }
+
+    const { data: insertedAssignments, error: assignErr } = await supabase
+      .from('assignments')
+      .insert(assignmentRows)
+      .select('id')
+    if (assignErr) {
+      console.error('  Assignment insert error:', assignErr.message)
+    } else {
+      console.log(`  ${insertedAssignments.length} assignments inserted`)
+
+      // Link janitor to each assignment
+      const ajLinks = insertedAssignments.map(a => ({
+        assignment_id: a.id,
+        janitor_id: janitorProfile.id,
+      }))
+      const { error: ajErr } = await supabase
+        .from('assignment_janitors')
+        .insert(ajLinks)
+      if (ajErr) console.error('  Assignment-janitor link error:', ajErr.message)
+      else console.log(`  ${ajLinks.length} assignment_janitors links created`)
+    }
+  } else {
+    console.error('  Skipping assignments — janitor profile not found')
+  }
+
   console.log('\n========================================')
   console.log('Done! Test login credentials:')
   console.log('  janitor@coor.no      / test1234  (Vaktmester)')

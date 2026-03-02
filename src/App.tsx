@@ -16,6 +16,7 @@ import { LoginPage } from '@/features/auth/pages/LoginPage'
 // Janitor pages
 import { JanitorHomePage } from '@/features/janitor/pages/HomePage'
 import { JanitorHistoryPage } from '@/features/janitor/pages/HistoryPage'
+import { VisitPage } from '@/features/janitor/pages/VisitPage'
 
 // Manager pages
 import { ManagerDashboardPage } from '@/features/manager/pages/DashboardPage'
@@ -53,6 +54,7 @@ function AppRoutes() {
       <Route element={<RequireAuth allowedRoles={['janitor']} />}>
         <Route element={<JanitorLayout />}>
           <Route path="/janitor" element={<JanitorHomePage />} />
+          <Route path="/janitor/visit/:id" element={<VisitPage />} />
           <Route path="/janitor/history" element={<JanitorHistoryPage />} />
           <Route path="/janitor/avvik" element={<PlaceholderPage title="Avvik" />} />
           <Route path="/janitor/time" element={<PlaceholderPage title="Tidsforbruk" />} />

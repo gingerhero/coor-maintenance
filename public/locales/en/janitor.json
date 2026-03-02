@@ -4,7 +4,13 @@
     "today": "Today",
     "upcoming": "Upcoming",
     "estimatedHours": "Estimated hours",
-    "noAssignments": "No assignments today"
+    "noAssignments": "No assignments today",
+    "status": {
+      "scheduled": "Scheduled",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
   },
   "visit": {
     "checkIn": "Check in",
