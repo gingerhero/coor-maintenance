@@ -346,7 +346,7 @@ export function VisitPage() {
             variant="secondary"
             size="lg"
             className="w-full"
-            disabled
+            onClick={() => navigate(`/janitor/visit/${id}/checkout`)}
           >
             {t('visit.checkOut')}
           </Button>

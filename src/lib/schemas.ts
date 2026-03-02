@@ -39,14 +39,14 @@ export type ProfileUpdateInput = z.infer<typeof profileUpdateSchema>
 // 3. Avvik (deviation) create
 // ---------------------------------------------------------------------------
 
-const avvikSeverity = z.enum(['low', 'medium', 'high', 'critical'])
+const avvikSeverity = z.enum(['low', 'medium', 'high'])
 
 export const avvikCreateSchema = z.object({
-  title: z.string().min(3).max(200),
-  description: z.string().min(10),
+  title: z.string().min(3, 'Tittel må ha minst 3 tegn').max(200),
+  description: z.string().min(10, 'Beskrivelse må ha minst 10 tegn'),
   severity: avvikSeverity,
   ns3451_code: z.string().optional(),
-  photo: z.instanceof(File).optional(),
+  location: z.string().max(200).optional(),
 })
 
 export type AvvikCreateInput = z.infer<typeof avvikCreateSchema>

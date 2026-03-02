@@ -6,6 +6,13 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog'
+import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
@@ -26,6 +33,7 @@ import type { SkipReason } from '@/types/database'
 import { TaskCard } from '@/features/janitor/components/TaskCard'
 import { CompleteTaskDialog } from '@/features/janitor/components/CompleteTaskDialog'
 import { SkipTaskDialog } from '@/features/janitor/components/SkipTaskDialog'
+import { AvvikForm } from '@/features/avvik/components/AvvikForm'
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -78,6 +86,8 @@ export function ChecklistPage() {
   // Dialog state
   const [completeDialogOpen, setCompleteDialogOpen] = useState(false)
   const [skipDialogOpen, setSkipDialogOpen] = useState(false)
+  const [avvikDialogOpen, setAvvikDialogOpen] = useState(false)
+  const [avvikPrefilledCode, setAvvikPrefilledCode] = useState<string | undefined>(undefined)
   const [activeInstructionId, setActiveInstructionId] = useState<string | null>(
     null,
   )
@@ -102,13 +112,30 @@ export function ChecklistPage() {
   }, [])
 
   const handleReportAvvik = useCallback(
-    (_instructionId: string) => {
-      // Avvik reporting will be integrated in a future sprint.
-      // Navigate to the avvik page for now.
-      navigate(`/janitor/avvik`)
+    (instructionId: string) => {
+      // Find the item to prefill NS 3451 code from the instruction's task group
+      const item = findItem(groups, instructionId)
+      const ns3451Code = item?.instruction.ns3451_code
+      setAvvikPrefilledCode(ns3451Code ?? undefined)
+      setAvvikDialogOpen(true)
     },
-    [navigate],
+    [groups],
   )
+
+  const handleAvvikFabClick = useCallback(() => {
+    setAvvikPrefilledCode(undefined)
+    setAvvikDialogOpen(true)
+  }, [])
+
+  const handleAvvikSuccess = useCallback(() => {
+    setAvvikDialogOpen(false)
+    setAvvikPrefilledCode(undefined)
+  }, [])
+
+  const handleAvvikCancel = useCallback(() => {
+    setAvvikDialogOpen(false)
+    setAvvikPrefilledCode(undefined)
+  }, [])
 
   const handleCompleteConfirm = useCallback(
     async (noAvvikConfirmed: boolean) => {
@@ -364,6 +391,41 @@ export function ChecklistPage() {
         taskDescription={activeItem?.instruction.description ?? ''}
         isSubmitting={skipTask.isPending}
       />
+
+      {/* Floating action button for avvik reporting */}
+      {propertyId && (
+        <button
+          type="button"
+          onClick={handleAvvikFabClick}
+          className="fixed bottom-20 right-4 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-coor-orange-500 text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
+          aria-label={t('avvik.new')}
+        >
+          <AlertTriangle className="h-6 w-6" />
+        </button>
+      )}
+
+      {/* Avvik form dialog (full-screen on mobile) */}
+      <Dialog open={avvikDialogOpen} onOpenChange={setAvvikDialogOpen}>
+        <DialogContent className="flex h-[100dvh] max-h-[100dvh] w-full max-w-full flex-col rounded-none border-0 sm:h-auto sm:max-h-[90vh] sm:max-w-lg sm:rounded-lg sm:border">
+          <DialogHeader>
+            <DialogTitle>{t('avvik.title')}</DialogTitle>
+            <DialogDescription className="sr-only">
+              {t('avvik.title')}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex-1 overflow-y-auto px-1">
+            {propertyId && (
+              <AvvikForm
+                propertyId={propertyId}
+                assignmentId={assignmentId}
+                prefilledNS3451Code={avvikPrefilledCode}
+                onSuccess={handleAvvikSuccess}
+                onCancel={handleAvvikCancel}
+              />
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
