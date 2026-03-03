@@ -139,6 +139,10 @@
       "approved": "Approved"
     }
   },
+  "instructionUpdate": {
+    "banner": "You have new maintenance instructions that require acknowledgment",
+    "acknowledge": "I understand"
+  },
   "avvik": {
     "title": "Report discrepancy",
     "pageTitle": "Discrepancies",

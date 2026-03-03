@@ -155,6 +155,18 @@ export const instructionCreateSchema = z.object({
 export type InstructionCreateInput = z.infer<typeof instructionCreateSchema>
 
 // ---------------------------------------------------------------------------
+// 8b. Instruction editor (extends create with additional fields)
+// ---------------------------------------------------------------------------
+
+export const instructionEditorSchema = instructionCreateSchema.extend({
+  photo_required: z.boolean(),
+  notify_board: z.boolean(),
+  comment: z.string().max(500).optional().or(z.literal('')),
+})
+
+export type InstructionEditorInput = z.infer<typeof instructionEditorSchema>
+
+// ---------------------------------------------------------------------------
 // 9. Roster entry
 // ---------------------------------------------------------------------------
 

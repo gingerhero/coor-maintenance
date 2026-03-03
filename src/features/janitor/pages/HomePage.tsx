@@ -9,6 +9,7 @@ import { EmptyState } from '@/components/ui/empty-state'
 import { useMyAssignments } from '@/features/assignments/hooks/useAssignments'
 import type { AssignmentWithProperty } from '@/features/assignments/hooks/useAssignments'
 import { AssignmentCard } from '@/features/janitor/components/AssignmentCard'
+import { InstructionUpdateBanner } from '@/features/janitor/components/InstructionUpdateBanner'
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -114,6 +115,9 @@ export function JanitorHomePage() {
           {format(today, 'd. MMMM yyyy', { locale: nb })}
         </span>
       </div>
+
+      {/* Instruction update banner */}
+      <InstructionUpdateBanner />
 
       {/* Today section */}
       <section>

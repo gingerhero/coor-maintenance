@@ -139,6 +139,10 @@
       "approved": "Godkjent"
     }
   },
+  "instructionUpdate": {
+    "banner": "Du har nye driftsinstrukser som krever bekreftelse",
+    "acknowledge": "Jeg forstår"
+  },
   "avvik": {
     "title": "Rapporter avvik",
     "pageTitle": "Avvik",

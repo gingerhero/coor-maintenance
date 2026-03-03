@@ -26,6 +26,10 @@ import { ProfilePage } from '@/features/janitor/pages/ProfilePage'
 
 // Manager pages
 import { ManagerDashboardPage } from '@/features/manager/pages/DashboardPage'
+import { PropertiesListPage } from '@/features/manager/pages/PropertiesListPage'
+import { PropertyDetailPage } from '@/features/manager/pages/PropertyDetailPage'
+import { AvvikInboxPage } from '@/features/manager/pages/AvvikInboxPage'
+import { InstructionsPage } from '@/features/manager/pages/InstructionsPage'
 
 // Customer pages
 import { CustomerDashboardPage } from '@/features/customer/pages/DashboardPage'
@@ -75,10 +79,11 @@ function AppRoutes() {
       <Route element={<RequireAuth allowedRoles={['manager', 'admin']} />}>
         <Route element={<ManagerLayout />}>
           <Route path="/manager" element={<ManagerDashboardPage />} />
-          <Route path="/manager/properties" element={<PlaceholderPage title="Eiendommer" />} />
-          <Route path="/manager/avvik" element={<PlaceholderPage title="Avvik-innboks" />} />
+          <Route path="/manager/properties" element={<PropertiesListPage />} />
+          <Route path="/manager/properties/:id" element={<PropertyDetailPage />} />
+          <Route path="/manager/avvik" element={<AvvikInboxPage />} />
           <Route path="/manager/roster" element={<PlaceholderPage title="Bemanningsark" />} />
-          <Route path="/manager/instructions" element={<PlaceholderPage title="Instrukser" />} />
+          <Route path="/manager/instructions" element={<InstructionsPage />} />
           <Route path="/manager/reports" element={<PlaceholderPage title="Rapporter" />} />
           <Route path="/manager/timesheets" element={<PlaceholderPage title="Timelister" />} />
           <Route path="/manager/settings" element={<PlaceholderPage title="Innstillinger" />} />
