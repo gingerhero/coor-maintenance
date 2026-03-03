@@ -120,7 +120,7 @@ export function NS3451CodePicker({
   const [searchQuery, setSearchQuery] = useState('')
   const [pendingCode, setPendingCode] = useState<NS3451Code | null>(null)
 
-  const { codes, codeMap, isLoading } = useNS3451Codes()
+  const { codes, codeMap } = useNS3451Codes()
 
   // Resolve the full code object for the current value
   const selectedCodeObj = value ? codeMap.get(value) : undefined

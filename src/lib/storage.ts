@@ -25,10 +25,6 @@ export async function uploadPhoto(
 
   if (error) throw new Error(`Upload failed: ${error.message}`)
 
-  const { data: urlData } = supabase.storage
-    .from(PHOTOS_BUCKET)
-    .getPublicUrl(path)
-
   // For private buckets, use createSignedUrl instead
   const { data: signedData, error: signedError } = await supabase.storage
     .from(PHOTOS_BUCKET)

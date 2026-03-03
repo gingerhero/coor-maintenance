@@ -4,14 +4,13 @@ import {
   type UseMutationOptions,
   type QueryKey,
 } from '@tanstack/react-query'
-import type { PostgrestSingleResponse } from '@supabase/supabase-js'
 
 interface UseSupabaseMutationOptions<TData, TVariables, TContext = unknown> {
   /**
    * The async function that performs the Supabase mutation.
    * Receives the variables passed to `mutate()` / `mutateAsync()`.
    */
-  mutationFn: (variables: TVariables) => Promise<PostgrestSingleResponse<TData>>
+  mutationFn: (variables: TVariables) => PromiseLike<{ data: TData | null; error: { message: string } | null }>
 
   /**
    * Query keys to invalidate after a successful mutation.
@@ -22,9 +21,6 @@ interface UseSupabaseMutationOptions<TData, TVariables, TContext = unknown> {
   /**
    * Called before the mutation fires. Return a context value that will be
    * passed to `onError` and `onSettled` for rollback purposes.
-   *
-   * For optimistic updates, cancel in-flight queries and snapshot the
-   * previous cache value here.
    */
   onMutate?: (variables: TVariables) => Promise<TContext> | TContext
 
@@ -66,28 +62,6 @@ interface UseSupabaseMutationOptions<TData, TVariables, TContext = unknown> {
  * })
  *
  * createAvvik.mutate({ property_id: '...', description: '...' })
- * ```
- *
- * @example Optimistic update
- * ```ts
- * const updateProperty = useSupabaseMutation({
- *   mutationFn: ({ id, ...patch }: { id: string } & Partial<Property>) =>
- *     supabase.from('properties').update(patch).eq('id', id).select().single(),
- *   invalidateKeys: [['properties']],
- *   onMutate: async ({ id, ...patch }) => {
- *     await queryClient.cancelQueries({ queryKey: ['properties'] })
- *     const previous = queryClient.getQueryData<Property[]>(['properties'])
- *     queryClient.setQueryData<Property[]>(['properties'], (old) =>
- *       old?.map((p) => (p.id === id ? { ...p, ...patch } : p)),
- *     )
- *     return { previous }
- *   },
- *   onError: (_err, _vars, context) => {
- *     if (context?.previous) {
- *       queryClient.setQueryData(['properties'], context.previous)
- *     }
- *   },
- * })
  * ```
  */
 export function useSupabaseMutation<TData, TVariables, TContext = unknown>(

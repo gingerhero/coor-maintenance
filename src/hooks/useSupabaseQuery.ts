@@ -3,51 +3,43 @@ import {
   type UseQueryOptions,
   type QueryKey,
 } from '@tanstack/react-query'
-import type { PostgrestBuilder } from '@supabase/postgrest-js'
 
 /**
- * Extracts the resolved data type from a Supabase PostgREST builder.
+ * Strips the Supabase SDK v2.98+ error union type from query results.
  *
- * Works with `.select()`, `.select().single()`, `.rpc()`, etc.
+ * When using `.single().returns<T>()`, the SDK creates a union:
+ *   `T | { Error: "Type mismatch: ..." }`
+ * This utility type removes the error variant so consumers see just `T`.
  */
-type SupabaseQueryResult<T> = T extends PostgrestBuilder<infer R> ? R : never
+type CleanResult<T> = T extends { Error: string } ? never : T
 
 /**
  * Generic hook that bridges a Supabase PostgREST query with React Query.
  *
- * It executes the builder, checks for Supabase-level errors (which are NOT
- * thrown by default), and surfaces them so React Query can handle retries,
- * error boundaries, etc.
+ * Uses a structural type constraint (`PromiseLike`) so it works with any
+ * Supabase builder (PostgrestBuilder, PostgrestTransformBuilder, etc.)
+ * regardless of the SDK version's generic parameter count.
  *
  * @example
  * ```ts
  * const { data, isLoading } = useSupabaseQuery(
  *   ['properties'],
- *   () => supabase.from('properties').select('*'),
- * )
- * ```
- *
- * @example With extra React Query options
- * ```ts
- * const { data } = useSupabaseQuery(
- *   ['ns3451-codes'],
- *   () => supabase.from('ns3451_codes').select('*'),
- *   { staleTime: Infinity },
+ *   () => supabase.from('properties').select('*').returns<Property[]>(),
  * )
  * ```
  */
 export function useSupabaseQuery<
   TQueryKey extends QueryKey,
-  TBuilder extends PostgrestBuilder<unknown>,
+  TData,
 >(
   queryKey: TQueryKey,
-  queryFn: () => TBuilder,
+  queryFn: () => PromiseLike<{ data: TData | null; error: { message: string } | null }>,
   options?: Omit<
-    UseQueryOptions<SupabaseQueryResult<TBuilder>, Error, SupabaseQueryResult<TBuilder>, TQueryKey>,
+    UseQueryOptions<CleanResult<TData>, Error, CleanResult<TData>, TQueryKey>,
     'queryKey' | 'queryFn'
   >,
 ) {
-  return useQuery<SupabaseQueryResult<TBuilder>, Error, SupabaseQueryResult<TBuilder>, TQueryKey>({
+  return useQuery<CleanResult<TData>, Error, CleanResult<TData>, TQueryKey>({
     queryKey,
     queryFn: async () => {
       const { data, error } = await queryFn()
@@ -56,7 +48,7 @@ export function useSupabaseQuery<
         throw new Error(error.message)
       }
 
-      return data as SupabaseQueryResult<TBuilder>
+      return data as CleanResult<TData>
     },
     ...options,
   })

@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import type { Instruction, TaskExecution, NS3451Code } from '@/types/database'
+import type { TaskExecution } from '@/types/database'
 import type { InstructionWithNS3451 } from '@/features/assignments/hooks/useInstructions'
 import { usePropertyInstructions } from '@/features/assignments/hooks/useInstructions'
 import {
@@ -17,11 +17,6 @@ import {
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
-
-type NS3451Info = Pick<
-  NS3451Code,
-  'code' | 'title_nb' | 'title_en' | 'level' | 'is_high_risk'
->
 
 export interface ChecklistItem {
   instruction: InstructionWithNS3451

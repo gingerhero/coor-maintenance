@@ -61,22 +61,22 @@ export function SkipTaskDialog({
   const { t } = useTranslation('janitor')
   const { t: tc } = useTranslation('common')
 
-  const [reason, setReason] = useState<SkipReason | ''>('')
+  const [reason, setReason] = useState<SkipReason | undefined>(undefined)
   const [note, setNote] = useState('')
 
   const isOther = reason === 'other'
   const canSubmit =
-    reason !== '' && (!isOther || note.trim().length > 0) && !isSubmitting
+    reason != null && (!isOther || note.trim().length > 0) && !isSubmitting
 
   function handleConfirm() {
-    if (!canSubmit || reason === '') return
+    if (!canSubmit || !reason) return
     onConfirm(reason, note.trim() || undefined)
   }
 
   function handleOpenChange(next: boolean) {
     if (!next) {
       // Reset form state when closing
-      setReason('')
+      setReason(undefined)
       setNote('')
     }
     onOpenChange(next)
@@ -102,7 +102,7 @@ export function SkipTaskDialog({
               {t('skip.reason')}
             </label>
             <Select
-              value={reason}
+              value={reason ?? ''}
               onValueChange={(val) => setReason(val as SkipReason)}
             >
               <SelectTrigger id="skip-reason">

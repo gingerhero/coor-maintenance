@@ -17,7 +17,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     // StrictMode double-mounts cause multiple getSession() calls that
     // queue on the same lock and never resolve. A no-op lock is safe
     // for a single-tab PWA.
-    lock: async (_name: string, _acquireTimeout: number, fn: () => Promise<unknown>) => {
+    lock: async <R>(_name: string, _acquireTimeout: number, fn: () => Promise<R>): Promise<R> => {
       return await fn()
     },
   },

@@ -37,7 +37,6 @@ export function TaskCard({
   item,
   onComplete,
   onSkip,
-  onReportAvvik,
 }: TaskCardProps) {
   const { t } = useTranslation('janitor')
   const [commentExpanded, setCommentExpanded] = useState(false)

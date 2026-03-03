@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { format } from 'date-fns'
-import { nb } from 'date-fns/locale'
 import {
   Building2,
   Clock,
@@ -59,8 +58,6 @@ export function CheckoutPage() {
   const { data: assignment, isLoading: assignmentLoading } = useAssignment(id)
   const {
     groups,
-    totalTasks,
-    completedTasks,
     isLoading: checklistLoading,
   } = useChecklist(id, assignment?.property_id)
 
