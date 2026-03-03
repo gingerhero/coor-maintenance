@@ -7,6 +7,7 @@ import {
   Users,
   FileText,
   BarChart3,
+  Clock,
   Menu,
   X,
 } from 'lucide-react'
@@ -49,6 +50,7 @@ export function ManagerLayout() {
           <SidebarLink to="/manager/properties" icon={<Building2 />} label={t('dashboard.properties')} />
           <SidebarLink to="/manager/avvik" icon={<AlertTriangle />} label={t('avvikInbox.title')} />
           <SidebarLink to="/manager/roster" icon={<Users />} label={t('roster.title')} />
+          <SidebarLink to="/manager/timesheets" icon={<Clock />} label={t('timesheets.title')} />
           <SidebarLink to="/manager/instructions" icon={<FileText />} label={t('instructions.title')} />
           <SidebarLink to="/manager/reports" icon={<BarChart3 />} label={t('reports.title')} />
         </nav>

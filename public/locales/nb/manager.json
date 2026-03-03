@@ -150,16 +150,96 @@
   },
   "roster": {
     "title": "Bemanningsark",
-    "assign": "Tildel eiendom",
-    "swapRequests": "Bytteforespørsler",
+    "assign": "Tildel vaktmester",
+    "editEntry": "Rediger tildeling",
+    "absenceReports": "Fraværsmeldinger",
     "approve": "Godkjenn",
     "reject": "Avslå",
-    "sickLeave": "Sykefravær"
+    "selectProperty": "Velg eiendom",
+    "noPropertySelected": "Velg en eiendom for å vise bemanningsarket",
+    "noEntries": "Ingen vaktmestere tildelt",
+    "noEntriesDescription": "Bruk «Tildel vaktmester» for å legge til",
+    "noPendingAbsences": "Ingen ventende fraværsmeldinger",
+    "noResolvedAbsences": "Ingen avgjorte fraværsmeldinger",
+    "pendingTab": "Ventende",
+    "resolvedTab": "Avgjorte",
+    "decisionNote": "Kommentar (valgfritt)",
+    "confirmAction": "Bekreft",
+    "replacementJanitor": "Vikar",
+    "noReplacement": "Ingen vikar",
+    "columns": {
+      "janitor": "Vaktmester",
+      "days": "Dager",
+      "hoursPerWeek": "Timer/uke",
+      "activeFrom": "Aktiv fra",
+      "activeTo": "Aktiv til",
+      "status": "Status",
+      "actions": "Handlinger",
+      "fromJanitor": "Vaktmester",
+      "absenceType": "Type",
+      "period": "Periode",
+      "reason": "Årsak"
+    },
+    "entry": {
+      "janitor": "Vaktmester",
+      "budgetedHours": "Timer per uke",
+      "activeFrom": "Aktiv fra",
+      "activeTo": "Aktiv til (tom = løpende)",
+      "schedule": "Arbeidsplan",
+      "notes": "Notater",
+      "deactivate": "Avslutt tildeling",
+      "deactivateConfirm": "Vil du avslutte denne tildelingen?",
+      "save": "Lagre",
+      "cancel": "Avbryt"
+    },
+    "entryStatus": {
+      "active": "Aktiv",
+      "ended": "Avsluttet",
+      "endingSoon": "Planlagt avslutning"
+    },
+    "absenceStatus": {
+      "pending": "Ventende",
+      "approved": "Godkjent",
+      "rejected": "Avslått"
+    },
+    "absenceTypes": {
+      "sick": "Sykefravær",
+      "other": "Annet"
+    }
   },
   "timesheets": {
     "title": "Timelister",
     "approve": "Godkjenn",
-    "export": "Eksporter til Excel"
+    "reject": "Tilbake til kladd",
+    "export": "Eksporter til Excel",
+    "bulkApprove": "Godkjenn {{count}} valgte",
+    "allJanitors": "Alle vaktmestere",
+    "allProperties": "Alle eiendommer",
+    "allStatuses": "Alle statuser",
+    "dateFrom": "Fra dato",
+    "dateTo": "Til dato",
+    "clearFilters": "Nullstill filter",
+    "noLogs": "Ingen timelister funnet",
+    "noLogsDescription": "Det finnes ingen tidsregistreringer som matcher valgte filtre",
+    "columns": {
+      "date": "Dato",
+      "janitor": "Vaktmester",
+      "property": "Eiendom",
+      "hours": "Timer",
+      "status": "Status",
+      "actions": "Handlinger"
+    },
+    "status": {
+      "draft": "Kladd",
+      "submitted": "Sendt inn",
+      "approved": "Godkjent"
+    },
+    "summary": {
+      "total": "Totalt: {{count}}",
+      "draft": "Kladd: {{count}}",
+      "submitted": "Sendt inn: {{count}}",
+      "approved": "Godkjent: {{count}}"
+    }
   },
   "reports": {
     "title": "Rapporter",

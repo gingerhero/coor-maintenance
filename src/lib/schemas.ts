@@ -205,13 +205,24 @@ export const rosterEntrySchema = z
 export type RosterEntryInput = z.infer<typeof rosterEntrySchema>
 
 // ---------------------------------------------------------------------------
-// 10. Swap request
+// 10. Absence report (replaces swap request)
 // ---------------------------------------------------------------------------
 
-export const swapRequestSchema = z.object({
-  target_janitor_id: uuidSchema,
-  assignment_id: uuidSchema,
-  reason: z.string().min(5).max(500),
-})
+const absenceType = z.enum(['sick', 'other'])
 
-export type SwapRequestInput = z.infer<typeof swapRequestSchema>
+export const absenceReportSchema = z
+  .object({
+    absence_type: absenceType,
+    reason: z.string().min(5, 'Årsak må ha minst 5 tegn').max(500),
+    date_from: dateSchema,
+    date_to: dateSchema,
+  })
+  .refine(
+    (data) => new Date(data.date_to) >= new Date(data.date_from),
+    {
+      path: ['date_to'],
+      message: 'Sluttdato må være etter startdato',
+    },
+  )
+
+export type AbsenceReportInput = z.infer<typeof absenceReportSchema>

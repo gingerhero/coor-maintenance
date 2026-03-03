@@ -1,6 +1,6 @@
 import { Outlet, NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Home, Clock, AlertTriangle, History, User } from 'lucide-react'
+import { Home, Clock, AlertTriangle, History, User, CalendarDays } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export function JanitorLayout() {
@@ -32,6 +32,7 @@ export function JanitorLayout() {
         <div className="flex items-center justify-around">
           <BottomNavItem to="/janitor" icon={<Home />} label={t('home.title')} end />
           <BottomNavItem to="/janitor/time" icon={<Clock />} label={t('time.title')} />
+          <BottomNavItem to="/janitor/roster" icon={<CalendarDays />} label={t('roster.title')} />
           <BottomNavItem to="/janitor/avvik" icon={<AlertTriangle />} label="Avvik" />
           <BottomNavItem to="/janitor/history" icon={<History />} label={t('history.title')} />
         </div>

@@ -23,6 +23,7 @@ import { VisitSummaryPage } from '@/features/janitor/pages/VisitSummaryPage'
 import { AvvikPage } from '@/features/janitor/pages/AvvikPage'
 import { TimePage } from '@/features/janitor/pages/TimePage'
 import { ProfilePage } from '@/features/janitor/pages/ProfilePage'
+import { JanitorRosterPage } from '@/features/janitor/pages/RosterPage'
 
 // Manager pages
 import { ManagerDashboardPage } from '@/features/manager/pages/DashboardPage'
@@ -30,6 +31,8 @@ import { PropertiesListPage } from '@/features/manager/pages/PropertiesListPage'
 import { PropertyDetailPage } from '@/features/manager/pages/PropertyDetailPage'
 import { AvvikInboxPage } from '@/features/manager/pages/AvvikInboxPage'
 import { InstructionsPage } from '@/features/manager/pages/InstructionsPage'
+import { RosterPage } from '@/features/manager/pages/RosterPage'
+import { TimesheetsPage } from '@/features/manager/pages/TimesheetsPage'
 
 // Customer pages
 import { CustomerDashboardPage } from '@/features/customer/pages/DashboardPage'
@@ -71,6 +74,7 @@ function AppRoutes() {
           <Route path="/janitor/history" element={<JanitorHistoryPage />} />
           <Route path="/janitor/avvik" element={<AvvikPage />} />
           <Route path="/janitor/time" element={<TimePage />} />
+          <Route path="/janitor/roster" element={<JanitorRosterPage />} />
           <Route path="/janitor/profile" element={<ProfilePage />} />
         </Route>
       </Route>
@@ -82,10 +86,10 @@ function AppRoutes() {
           <Route path="/manager/properties" element={<PropertiesListPage />} />
           <Route path="/manager/properties/:id" element={<PropertyDetailPage />} />
           <Route path="/manager/avvik" element={<AvvikInboxPage />} />
-          <Route path="/manager/roster" element={<PlaceholderPage title="Bemanningsark" />} />
+          <Route path="/manager/roster" element={<RosterPage />} />
           <Route path="/manager/instructions" element={<InstructionsPage />} />
           <Route path="/manager/reports" element={<PlaceholderPage title="Rapporter" />} />
-          <Route path="/manager/timesheets" element={<PlaceholderPage title="Timelister" />} />
+          <Route path="/manager/timesheets" element={<TimesheetsPage />} />
           <Route path="/manager/settings" element={<PlaceholderPage title="Innstillinger" />} />
         </Route>
       </Route>

@@ -137,11 +137,37 @@
       "draft": "Draft",
       "submitted": "Submitted",
       "approved": "Approved"
-    }
+    },
+    "submitWeek": "Submit week",
+    "noBudgetedHours": "No budgeted hours"
   },
   "instructionUpdate": {
     "banner": "You have new maintenance instructions that require acknowledgment",
     "acknowledge": "I understand"
+  },
+  "roster": {
+    "title": "My schedule",
+    "noEntries": "No active assignments"
+  },
+  "absence": {
+    "title": "Report absence",
+    "type": "Absence type",
+    "sick": "Sick leave",
+    "other": "Other",
+    "reason": "Reason",
+    "reasonPlaceholder": "Explain why you can't make it...",
+    "dateFrom": "From date",
+    "dateTo": "To date",
+    "submit": "Report absence",
+    "cancel": "Cancel",
+    "myReports": "My absence reports",
+    "noReports": "No absence reports",
+    "replacement": "Replacement",
+    "status": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    }
   },
   "avvik": {
     "title": "Report discrepancy",

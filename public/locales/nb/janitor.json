@@ -137,11 +137,37 @@
       "draft": "Kladd",
       "submitted": "Sendt",
       "approved": "Godkjent"
-    }
+    },
+    "submitWeek": "Send inn uke",
+    "noBudgetedHours": "Ingen budsjetterte timer"
   },
   "instructionUpdate": {
     "banner": "Du har nye driftsinstrukser som krever bekreftelse",
     "acknowledge": "Jeg forstår"
+  },
+  "roster": {
+    "title": "Min turnus",
+    "noEntries": "Ingen aktive tildelinger"
+  },
+  "absence": {
+    "title": "Meld fravær",
+    "type": "Type fravær",
+    "sick": "Sykefravær",
+    "other": "Annet",
+    "reason": "Årsak",
+    "reasonPlaceholder": "Forklar hvorfor du ikke kan stille...",
+    "dateFrom": "Fra dato",
+    "dateTo": "Til dato",
+    "submit": "Meld fravær",
+    "cancel": "Avbryt",
+    "myReports": "Mine fraværsmeldinger",
+    "noReports": "Ingen fraværsmeldinger",
+    "replacement": "Vikar",
+    "status": {
+      "pending": "Ventende",
+      "approved": "Godkjent",
+      "rejected": "Avslått"
+    }
   },
   "avvik": {
     "title": "Rapporter avvik",

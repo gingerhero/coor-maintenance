@@ -52,7 +52,6 @@ export function ProfilePage() {
   const [signingOut, setSigningOut] = useState(false)
   const [updatingGps, setUpdatingGps] = useState(false)
   const [updatingPhoto, setUpdatingPhoto] = useState(false)
-
   if (!profile) return null
 
   const hasGpsConsent = profile.gps_consent_at != null

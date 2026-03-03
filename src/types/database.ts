@@ -198,11 +198,14 @@ export interface RosterEntry {
   updated_at: string
 }
 
+export type AbsenceType = 'sick' | 'other'
+
 export interface SwapRequest {
   id: string
   from_janitor_id: string
   to_janitor_id: string | null
   assignment_id: string | null
+  absence_type: AbsenceType | null
   reason: string
   date_from: string
   date_to: string

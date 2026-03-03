@@ -11,9 +11,10 @@ import {
   isToday,
 } from 'date-fns'
 import { nb } from 'date-fns/locale'
-import { ChevronLeft, ChevronRight, Plus, Clock } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Plus, Clock, Send } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
+import { minutesToDisplay } from '@/lib/time-utils'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -30,21 +31,15 @@ import { useProperties } from '@/features/properties/hooks/useProperties'
 import {
   useWeeklyTimeSummary,
   useCreateTimeLog,
+  useSubmitWeekTimeLogs,
   type TimeLogWithProperty,
 } from '@/features/janitor/hooks/useTimeLogs'
+import { useMyCurrentRoster } from '@/features/janitor/hooks/useMyRoster'
 import type { TimeLogStatus } from '@/types/database'
 
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
-
-function minutesToDisplay(minutes: number): string {
-  const h = Math.floor(minutes / 60)
-  const m = minutes % 60
-  if (h === 0) return `${m}m`
-  if (m === 0) return `${h}t`
-  return `${h}t ${m}m`
-}
 
 function getStatusVariant(
   status: TimeLogStatus,
@@ -354,6 +349,7 @@ function WeeklySkeleton() {
 
 export function TimePage() {
   const { t } = useTranslation('janitor')
+  const profile = useAuthStore((s) => s.profile)
   const [currentWeekStart, setCurrentWeekStart] = useState(() =>
     startOfWeek(new Date(), { weekStartsOn: 1 }),
   )
@@ -408,11 +404,22 @@ export function TimePage() {
   )
   const totalHours = totalMinutes / 60
 
-  // Budgeted hours placeholder (could be derived from roster entries)
-  const budgetedHours = 37.5
+  // Budgeted hours from roster entries
+  const { data: rosterEntries } = useMyCurrentRoster()
+  const budgetedHours = useMemo(
+    () => rosterEntries?.reduce((sum, entry) => sum + (entry.budgeted_weekly_hours ?? 0), 0) ?? 0,
+    [rosterEntries],
+  )
 
   // Progress percentage (capped at 100%)
   const progressPct = Math.min(100, (totalHours / budgetedHours) * 100)
+
+  // Submit week
+  const submitWeek = useSubmitWeekTimeLogs()
+  const hasDraftLogs = useMemo(
+    () => weeklyLogs?.some((l) => l.status === 'draft') ?? false,
+    [weeklyLogs],
+  )
 
   // Manual entry dialog
   const [showManualEntry, setShowManualEntry] = useState(false)
@@ -436,14 +443,34 @@ export function TimePage() {
       {/* Page header */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">{t('time.title')}</h1>
-        <Button
-          size="lg"
-          onClick={() => setShowManualEntry(true)}
-          className="gap-1.5"
-        >
-          <Plus className="h-4 w-4" />
-          <span className="hidden sm:inline">{t('time.addManual')}</span>
-        </Button>
+        <div className="flex items-center gap-2">
+          {hasDraftLogs && (
+            <Button
+              variant="outline"
+              onClick={() => {
+                if (!profile) return
+                submitWeek.mutate({
+                  janitorId: profile.id,
+                  weekStart: weekStartStr,
+                  weekEnd: weekEndStr,
+                })
+              }}
+              disabled={submitWeek.isPending}
+              className="gap-1.5"
+            >
+              <Send className="h-4 w-4" />
+              <span className="hidden sm:inline">{t('time.submitWeek')}</span>
+            </Button>
+          )}
+          <Button
+            size="lg"
+            onClick={() => setShowManualEntry(true)}
+            className="gap-1.5"
+          >
+            <Plus className="h-4 w-4" />
+            <span className="hidden sm:inline">{t('time.addManual')}</span>
+          </Button>
+        </div>
       </div>
 
       {/* Week navigation */}
@@ -493,27 +520,35 @@ export function TimePage() {
                 <span className="text-2xl font-bold text-foreground">
                   {totalHours.toFixed(1)}t
                 </span>
-                <span className="text-sm text-muted-foreground">
-                  {t('time.budgetedHours')}: {budgetedHours}t
-                </span>
+                {budgetedHours > 0 && (
+                  <span className="text-sm text-muted-foreground">
+                    {t('time.budgetedHours')}: {budgetedHours}t
+                  </span>
+                )}
               </div>
-              {/* Progress bar */}
-              <div className="h-3 w-full overflow-hidden rounded-full bg-muted">
-                <div
-                  className={cn(
-                    'h-full rounded-full transition-all duration-300',
-                    progressPct >= 100
-                      ? 'bg-coor-green-500'
-                      : progressPct >= 75
-                        ? 'bg-coor-blue-500'
-                        : 'bg-coor-orange-500',
-                  )}
-                  style={{ width: `${progressPct}%` }}
-                />
-              </div>
-              <p className="mt-1 text-right text-xs text-muted-foreground">
-                {progressPct.toFixed(0)}%
-              </p>
+              {budgetedHours > 0 ? (
+                <>
+                  {/* Progress bar */}
+                  <div className="h-3 w-full overflow-hidden rounded-full bg-muted">
+                    <div
+                      className={cn(
+                        'h-full rounded-full transition-all duration-300',
+                        progressPct >= 100
+                          ? 'bg-coor-green-500'
+                          : progressPct >= 75
+                            ? 'bg-coor-blue-500'
+                            : 'bg-coor-orange-500',
+                      )}
+                      style={{ width: `${progressPct}%` }}
+                    />
+                  </div>
+                  <p className="mt-1 text-right text-xs text-muted-foreground">
+                    {progressPct.toFixed(0)}%
+                  </p>
+                </>
+              ) : (
+                <p className="text-xs text-muted-foreground">{t('time.noBudgetedHours')}</p>
+              )}
             </CardContent>
           </Card>
 

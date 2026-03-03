@@ -150,16 +150,96 @@
   },
   "roster": {
     "title": "Staffing roster",
-    "assign": "Assign property",
-    "swapRequests": "Swap requests",
+    "assign": "Assign janitor",
+    "editEntry": "Edit assignment",
+    "absenceReports": "Absence reports",
     "approve": "Approve",
     "reject": "Reject",
-    "sickLeave": "Sick leave"
+    "selectProperty": "Select property",
+    "noPropertySelected": "Select a property to view the staffing roster",
+    "noEntries": "No janitors assigned",
+    "noEntriesDescription": "Use \"Assign janitor\" to add one",
+    "noPendingAbsences": "No pending absence reports",
+    "noResolvedAbsences": "No resolved absence reports",
+    "pendingTab": "Pending",
+    "resolvedTab": "Resolved",
+    "decisionNote": "Comment (optional)",
+    "confirmAction": "Confirm",
+    "replacementJanitor": "Replacement janitor",
+    "noReplacement": "No replacement",
+    "columns": {
+      "janitor": "Janitor",
+      "days": "Days",
+      "hoursPerWeek": "Hours/week",
+      "activeFrom": "Active from",
+      "activeTo": "Active to",
+      "status": "Status",
+      "actions": "Actions",
+      "fromJanitor": "Janitor",
+      "absenceType": "Type",
+      "period": "Period",
+      "reason": "Reason"
+    },
+    "entry": {
+      "janitor": "Janitor",
+      "budgetedHours": "Hours per week",
+      "activeFrom": "Active from",
+      "activeTo": "Active to (empty = ongoing)",
+      "schedule": "Work schedule",
+      "notes": "Notes",
+      "deactivate": "End assignment",
+      "deactivateConfirm": "Do you want to end this assignment?",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "entryStatus": {
+      "active": "Active",
+      "ended": "Ended",
+      "endingSoon": "Ending soon"
+    },
+    "absenceStatus": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "absenceTypes": {
+      "sick": "Sick leave",
+      "other": "Other"
+    }
   },
   "timesheets": {
     "title": "Timesheets",
     "approve": "Approve",
-    "export": "Export to Excel"
+    "reject": "Revert to draft",
+    "export": "Export to Excel",
+    "bulkApprove": "Approve {{count}} selected",
+    "allJanitors": "All janitors",
+    "allProperties": "All properties",
+    "allStatuses": "All statuses",
+    "dateFrom": "From date",
+    "dateTo": "To date",
+    "clearFilters": "Clear filters",
+    "noLogs": "No timesheets found",
+    "noLogsDescription": "There are no time logs matching the selected filters",
+    "columns": {
+      "date": "Date",
+      "janitor": "Janitor",
+      "property": "Property",
+      "hours": "Hours",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "status": {
+      "draft": "Draft",
+      "submitted": "Submitted",
+      "approved": "Approved"
+    },
+    "summary": {
+      "total": "Total: {{count}}",
+      "draft": "Draft: {{count}}",
+      "submitted": "Submitted: {{count}}",
+      "approved": "Approved: {{count}}"
+    }
   },
   "reports": {
     "title": "Reports",

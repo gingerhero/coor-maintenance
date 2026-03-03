@@ -134,3 +134,22 @@ export function useCreateTimeLog() {
     invalidateKeys: [timeLogKeys.all],
   })
 }
+
+/**
+ * Mutation to submit all draft time logs for a given week.
+ * Changes status from 'draft' to 'submitted'.
+ */
+export function useSubmitWeekTimeLogs() {
+  return useSupabaseMutation<TimeLog[], { janitorId: string; weekStart: string; weekEnd: string }>({
+    mutationFn: (variables) =>
+      supabase
+        .from('time_logs')
+        .update({ status: 'submitted' as const })
+        .eq('janitor_id', variables.janitorId)
+        .eq('status', 'draft')
+        .gte('date', variables.weekStart)
+        .lte('date', variables.weekEnd)
+        .select(),
+    invalidateKeys: [timeLogKeys.all],
+  })
+}
