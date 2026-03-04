@@ -2,7 +2,10 @@
   "dashboard": {
     "title": "My Properties",
     "lastVisit": "Last visit",
-    "completionRate": "Completion rate"
+    "completionRate": "Completion rate",
+    "noProperties": "No properties found",
+    "noPropertiesDescription": "Properties linked to your organization will appear here",
+    "openAvvik": "open issues"
   },
   "property": {
     "title": "Property",
@@ -11,14 +14,35 @@
   },
   "avvik": {
     "title": "Discrepancies",
-    "open": "Open discrepancies",
-    "resolved": "Resolved discrepancies",
+    "open": "Open",
+    "resolved": "Resolved",
     "timeline": "Timeline",
     "reportedOn": "Reported on",
-    "resolvedOn": "Resolved on"
+    "resolvedOn": "Resolved on",
+    "allProperties": "All properties",
+    "noAvvik": "No discrepancies found",
+    "noAvvikDescription": "There are no discrepancies for the selected filters",
+    "comments": "Comments",
+    "noComments": "No comments yet"
   },
   "reports": {
+    "title": "Reports",
     "downloadPdf": "Download PDF report",
-    "monthlySummary": "Monthly summary"
+    "monthlySummary": "Monthly summary",
+    "selectProperty": "All properties",
+    "total": "Total",
+    "open": "Open",
+    "resolved": "Resolved",
+    "noData": "No data available",
+    "month": "Month",
+    "count": "Count"
+  },
+  "profile": {
+    "title": "Profile",
+    "language": "Language",
+    "languageNb": "Norsk",
+    "languageEn": "English",
+    "signOut": "Sign out",
+    "signOutConfirm": "Are you sure you want to sign out?"
   }
 }

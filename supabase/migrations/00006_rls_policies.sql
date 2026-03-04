@@ -117,6 +117,17 @@ CREATE POLICY "Admins can manage customers"
   USING (public.user_role() = 'admin');
 
 -- ========================================
+-- CUSTOMER_USERS
+-- ========================================
+CREATE POLICY "Customer users can view own memberships"
+  ON customer_users FOR SELECT
+  USING (profile_id = auth.uid());
+
+CREATE POLICY "Managers/admins can manage customer_users"
+  ON customer_users FOR ALL
+  USING (public.is_manager_or_admin());
+
+-- ========================================
 -- ASSIGNMENTS
 -- ========================================
 CREATE POLICY "Janitors see own assignments"

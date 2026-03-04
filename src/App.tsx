@@ -38,6 +38,9 @@ import { SettingsPage } from '@/features/manager/pages/SettingsPage'
 
 // Customer pages
 import { CustomerDashboardPage } from '@/features/customer/pages/DashboardPage'
+import { CustomerAvvikPage } from '@/features/customer/pages/AvvikPage'
+import { CustomerReportsPage } from '@/features/customer/pages/ReportsPage'
+import { CustomerProfilePage } from '@/features/customer/pages/ProfilePage'
 
 function AppRoutes() {
   useAuth()
@@ -100,26 +103,15 @@ function AppRoutes() {
       <Route element={<RequireAuth allowedRoles={['customer']} />}>
         <Route element={<CustomerLayout />}>
           <Route path="/customer" element={<CustomerDashboardPage />} />
-          <Route path="/customer/avvik" element={<PlaceholderPage title="Avvik" />} />
-          <Route path="/customer/reports" element={<PlaceholderPage title="Rapporter" />} />
-          <Route path="/customer/profile" element={<PlaceholderPage title="Profil" />} />
+          <Route path="/customer/avvik" element={<CustomerAvvikPage />} />
+          <Route path="/customer/reports" element={<CustomerReportsPage />} />
+          <Route path="/customer/profile" element={<CustomerProfilePage />} />
         </Route>
       </Route>
 
       {/* 404 */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
-  )
-}
-
-function PlaceholderPage({ title }: { title: string }) {
-  return (
-    <div>
-      <h1 className="mb-4 text-2xl font-bold">{title}</h1>
-      <div className="rounded-lg border border-dashed border-border p-8 text-center text-muted-foreground">
-        Kommer snart
-      </div>
-    </div>
   )
 }
 

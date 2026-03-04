@@ -2,7 +2,10 @@
   "dashboard": {
     "title": "Mine eiendommer",
     "lastVisit": "Siste besøk",
-    "completionRate": "Fullføringsgrad"
+    "completionRate": "Fullføringsgrad",
+    "noProperties": "Ingen eiendommer funnet",
+    "noPropertiesDescription": "Eiendommer knyttet til din organisasjon vil vises her",
+    "openAvvik": "åpne avvik"
   },
   "property": {
     "title": "Eiendom",
@@ -11,14 +14,35 @@
   },
   "avvik": {
     "title": "Avvik",
-    "open": "Åpne avvik",
-    "resolved": "Løste avvik",
+    "open": "Åpne",
+    "resolved": "Løste",
     "timeline": "Tidslinje",
     "reportedOn": "Rapportert",
-    "resolvedOn": "Løst"
+    "resolvedOn": "Løst",
+    "allProperties": "Alle eiendommer",
+    "noAvvik": "Ingen avvik funnet",
+    "noAvvikDescription": "Det finnes ingen avvik for valgte filtre",
+    "comments": "Kommentarer",
+    "noComments": "Ingen kommentarer ennå"
   },
   "reports": {
+    "title": "Rapporter",
     "downloadPdf": "Last ned PDF-rapport",
-    "monthlySummary": "Månedlig oppsummering"
+    "monthlySummary": "Månedlig oppsummering",
+    "selectProperty": "Alle eiendommer",
+    "total": "Totalt",
+    "open": "Åpne",
+    "resolved": "Løste",
+    "noData": "Ingen data tilgjengelig",
+    "month": "Måned",
+    "count": "Antall"
+  },
+  "profile": {
+    "title": "Profil",
+    "language": "Språk",
+    "languageNb": "Norsk",
+    "languageEn": "English",
+    "signOut": "Logg ut",
+    "signOutConfirm": "Er du sikker på at du vil logge ut?"
   }
 }
