@@ -246,6 +246,37 @@
     "completion": "Fullføring per NS 3451",
     "profitability": "Lønnsomhet",
     "avvikHeatmap": "Avvik-oversikt",
-    "photoGallery": "Bildegalleri"
+    "photoGallery": "Bildegalleri",
+    "selectProperty": "Alle eiendommer",
+    "nsCode": "NS 3451-kode",
+    "description": "Beskrivelse",
+    "completionRate": "Fullføringsgrad",
+    "property": "Eiendom",
+    "budgetedHours": "Budsjetterte timer",
+    "actualHours": "Faktiske timer",
+    "delta": "Differanse",
+    "efficiency": "Effektivitet",
+    "total": "Totalt",
+    "underBudget": "Under budsjett",
+    "overBudget": "Over budsjett",
+    "byStatus": "Etter status",
+    "bySeverity": "Etter alvorlighet",
+    "noData": "Ingen data for valgte filtre",
+    "noPhotos": "Ingen bilder funnet",
+    "photoDate": "Dato",
+    "photoType": "Type",
+    "hours": "timer",
+    "open": "Åpne",
+    "resolved": "Løste"
+  },
+  "settings": {
+    "title": "Innstillinger",
+    "profileSection": "Profil",
+    "preferencesSection": "Innstillinger",
+    "language": "Språk",
+    "languageNb": "Norsk",
+    "languageEn": "English",
+    "signOut": "Logg ut",
+    "signOutConfirm": "Er du sikker på at du vil logge ut?"
   }
 }

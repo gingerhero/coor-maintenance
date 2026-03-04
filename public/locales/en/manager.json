@@ -246,6 +246,37 @@
     "completion": "Completion by NS 3451",
     "profitability": "Profitability",
     "avvikHeatmap": "Discrepancy overview",
-    "photoGallery": "Photo gallery"
+    "photoGallery": "Photo gallery",
+    "selectProperty": "All properties",
+    "nsCode": "NS 3451 Code",
+    "description": "Description",
+    "completionRate": "Completion rate",
+    "property": "Property",
+    "budgetedHours": "Budgeted hours",
+    "actualHours": "Actual hours",
+    "delta": "Difference",
+    "efficiency": "Efficiency",
+    "total": "Total",
+    "underBudget": "Under budget",
+    "overBudget": "Over budget",
+    "byStatus": "By status",
+    "bySeverity": "By severity",
+    "noData": "No data for selected filters",
+    "noPhotos": "No photos found",
+    "photoDate": "Date",
+    "photoType": "Type",
+    "hours": "hours",
+    "open": "Open",
+    "resolved": "Resolved"
+  },
+  "settings": {
+    "title": "Settings",
+    "profileSection": "Profile",
+    "preferencesSection": "Preferences",
+    "language": "Language",
+    "languageNb": "Norsk",
+    "languageEn": "English",
+    "signOut": "Sign out",
+    "signOutConfirm": "Are you sure you want to sign out?"
   }
 }

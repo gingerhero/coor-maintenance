@@ -8,6 +8,7 @@ import {
   FileText,
   BarChart3,
   Clock,
+  Settings,
   Menu,
   X,
 } from 'lucide-react'
@@ -56,7 +57,7 @@ export function ManagerLayout() {
         </nav>
 
         <div className="border-t border-border p-3">
-          <SidebarLink to="/manager/settings" icon={<Users />} label={tc('settings')} />
+          <SidebarLink to="/manager/settings" icon={<Settings />} label={tc('settings')} />
         </div>
       </aside>
 

@@ -33,6 +33,8 @@ import { AvvikInboxPage } from '@/features/manager/pages/AvvikInboxPage'
 import { InstructionsPage } from '@/features/manager/pages/InstructionsPage'
 import { RosterPage } from '@/features/manager/pages/RosterPage'
 import { TimesheetsPage } from '@/features/manager/pages/TimesheetsPage'
+import { ReportsPage } from '@/features/manager/pages/ReportsPage'
+import { SettingsPage } from '@/features/manager/pages/SettingsPage'
 
 // Customer pages
 import { CustomerDashboardPage } from '@/features/customer/pages/DashboardPage'
@@ -88,9 +90,9 @@ function AppRoutes() {
           <Route path="/manager/avvik" element={<AvvikInboxPage />} />
           <Route path="/manager/roster" element={<RosterPage />} />
           <Route path="/manager/instructions" element={<InstructionsPage />} />
-          <Route path="/manager/reports" element={<PlaceholderPage title="Rapporter" />} />
+          <Route path="/manager/reports" element={<ReportsPage />} />
           <Route path="/manager/timesheets" element={<TimesheetsPage />} />
-          <Route path="/manager/settings" element={<PlaceholderPage title="Innstillinger" />} />
+          <Route path="/manager/settings" element={<SettingsPage />} />
         </Route>
       </Route>
 
