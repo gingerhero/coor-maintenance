@@ -34,7 +34,11 @@
     "skip": "Hopp over",
     "avvikFound": "Avvik oppdaget",
     "photoRequired": "Bilde påkrevd",
-    "noAvvikConfirmed": "Ingen avvik observert"
+    "noAvvikConfirmed": "Ingen avvik observert",
+    "takePhoto": "Ta bilde",
+    "selectPhoto": "Velg bilde",
+    "photoAdded": "{{count}} bilde(r) lagt til",
+    "photoUploadFailed": "Oppgaven er fullført, men bildeopplasting feilet"
   },
   "skip": {
     "title": "Hopp over oppgave",

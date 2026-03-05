@@ -9,7 +9,7 @@ const PHOTOS_BUCKET = 'photos'
 export async function uploadPhoto(
   file: File,
   propertyId: string,
-  entityType: 'task' | 'avvik' | 'checkin',
+  entityType: 'task_execution' | 'avvik' | 'checkin',
   entityId: string,
 ): Promise<{ path: string; url: string }> {
   const ext = file.name.split('.').pop() || 'jpg'

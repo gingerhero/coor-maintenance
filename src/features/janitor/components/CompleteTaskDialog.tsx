@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Camera } from 'lucide-react'
+import { Camera, X, ImagePlus, Loader2 } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { useCamera, type CapturedPhoto } from '@/hooks/useCamera'
 import {
   Dialog,
   DialogContent,
@@ -20,7 +22,7 @@ import { Spinner } from '@/components/ui/spinner'
 export interface CompleteTaskDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
-  onConfirm: (noAvvikConfirmed: boolean) => void
+  onConfirm: (noAvvikConfirmed: boolean, photos: CapturedPhoto[]) => void
   taskDescription: string
   photoRequired: boolean
   notifyBoard: boolean
@@ -49,19 +51,52 @@ export function CompleteTaskDialog({
   const { t } = useTranslation('janitor')
   const { t: tc } = useTranslation('common')
 
-  const [noAvvikChecked, setNoAvvikChecked] = useState(false)
+  const MAX_PHOTOS = 3
 
-  // If notifyBoard is on, the janitor must explicitly confirm no avvik.
-  const canSubmit = (!notifyBoard || noAvvikChecked) && !isSubmitting
+  const [noAvvikChecked, setNoAvvikChecked] = useState(false)
+  const [photos, setPhotos] = useState<CapturedPhoto[]>([])
+  const { capturePhoto, selectPhoto, isCapturing } = useCamera()
+
+  const hasRequiredPhotos = !photoRequired || photos.length > 0
+  const canSubmit =
+    (!notifyBoard || noAvvikChecked) && hasRequiredPhotos && !isSubmitting && !isCapturing
+
+  const handleCapturePhoto = useCallback(async () => {
+    if (photos.length >= MAX_PHOTOS) return
+    const photo = await capturePhoto()
+    if (photo) {
+      setPhotos((prev) => [...prev, photo])
+    }
+  }, [capturePhoto, photos.length])
+
+  const handleSelectPhoto = useCallback(async () => {
+    if (photos.length >= MAX_PHOTOS) return
+    const photo = await selectPhoto()
+    if (photo) {
+      setPhotos((prev) => [...prev, photo])
+    }
+  }, [selectPhoto, photos.length])
+
+  const handleRemovePhoto = useCallback((index: number) => {
+    setPhotos((prev) => {
+      const removed = prev[index]
+      if (removed) URL.revokeObjectURL(removed.previewUrl)
+      return prev.filter((_, i) => i !== index)
+    })
+  }, [])
 
   function handleConfirm() {
     if (!canSubmit) return
-    onConfirm(noAvvikChecked)
+    onConfirm(noAvvikChecked, photos)
   }
 
   function handleOpenChange(next: boolean) {
     if (!next) {
       setNoAvvikChecked(false)
+      for (const photo of photos) {
+        URL.revokeObjectURL(photo.previewUrl)
+      }
+      setPhotos([])
     }
     onOpenChange(next)
   }
@@ -102,11 +137,77 @@ export function CompleteTaskDialog({
             </div>
           )}
 
-          {/* Photo-required notice */}
+          {/* Photo capture section */}
           {photoRequired && (
-            <div className="flex items-center gap-2 rounded-md border border-amber-300 bg-amber-50 p-3 text-sm text-amber-800">
-              <Camera className="h-4 w-4 shrink-0" />
-              <span>{t('checklist.photoRequired')}</span>
+            <div className="space-y-3">
+              <div
+                className={cn(
+                  'flex items-center gap-2 rounded-md border p-3 text-sm',
+                  photos.length === 0
+                    ? 'border-amber-300 bg-amber-50 text-amber-800'
+                    : 'border-emerald-300 bg-emerald-50 text-emerald-800',
+                )}
+              >
+                <Camera className="h-4 w-4 shrink-0" />
+                <span>
+                  {photos.length === 0
+                    ? t('checklist.photoRequired')
+                    : t('checklist.photoAdded', { count: photos.length })}
+                </span>
+              </div>
+
+              {photos.length > 0 && (
+                <div className="grid grid-cols-3 gap-2">
+                  {photos.map((photo, idx) => (
+                    <div key={photo.capturedAt} className="relative aspect-square">
+                      <img
+                        src={photo.previewUrl}
+                        alt={`Photo ${idx + 1}`}
+                        className="h-full w-full rounded-md object-cover"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => handleRemovePhoto(idx)}
+                        className="absolute -right-1.5 -top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-destructive text-white shadow-sm"
+                        aria-label={`Remove photo ${idx + 1}`}
+                      >
+                        <X className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {photos.length < MAX_PHOTOS && (
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="flex-1"
+                    onClick={handleCapturePhoto}
+                    disabled={isCapturing || isSubmitting}
+                  >
+                    {isCapturing ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <Camera className="h-4 w-4" />
+                    )}
+                    {t('checklist.takePhoto')}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="flex-1"
+                    onClick={handleSelectPhoto}
+                    disabled={isCapturing || isSubmitting}
+                  >
+                    <ImagePlus className="h-4 w-4" />
+                    {t('checklist.selectPhoto')}
+                  </Button>
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -122,7 +223,7 @@ export function CompleteTaskDialog({
           </Button>
           <Button
             size="lg"
-            className="bg-coor-green-500 hover:bg-coor-green-600 active:bg-coor-green-700"
+            className="bg-accent-emerald-500 hover:bg-accent-emerald-600 active:bg-accent-emerald-700"
             onClick={handleConfirm}
             disabled={!canSubmit}
           >

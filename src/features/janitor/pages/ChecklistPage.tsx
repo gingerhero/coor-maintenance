@@ -3,6 +3,11 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ArrowLeft, AlertTriangle } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { uploadPhoto } from '@/lib/storage'
+import { supabase } from '@/lib/supabase'
+import { useAuthStore } from '@/stores/authStore'
+import type { CapturedPhoto } from '@/hooks/useCamera'
+import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
@@ -19,7 +24,6 @@ import {
   AccordionContent,
 } from '@/components/ui/accordion'
 import { NS3451Badge } from '@/components/ns3451/NS3451Badge'
-import { getCategoryColor } from '@/components/ns3451/ns3451-colors'
 import { useAssignment } from '@/features/assignments/hooks/useAssignments'
 import {
   useCompleteTask,
@@ -138,8 +142,10 @@ export function ChecklistPage() {
   }, [])
 
   const handleCompleteConfirm = useCallback(
-    async (noAvvikConfirmed: boolean) => {
+    async (noAvvikConfirmed: boolean, photos: CapturedPhoto[]) => {
       if (!assignmentId || !activeInstructionId) return
+
+      const userId = useAuthStore.getState().profile?.id
 
       let gpsLat: number | undefined
       let gpsLng: number | undefined
@@ -154,7 +160,7 @@ export function ChecklistPage() {
         // GPS optional; proceed without
       }
 
-      await completeTask.mutateAsync({
+      const taskExecution = await completeTask.mutateAsync({
         assignment_id: assignmentId,
         instruction_id: activeInstructionId,
         gps_lat: gpsLat,
@@ -163,10 +169,37 @@ export function ChecklistPage() {
         no_avvik_confirmed: noAvvikConfirmed,
       })
 
+      // Upload photos (best-effort — don't roll back task completion)
+      if (photos.length > 0 && taskExecution && propertyId && userId) {
+        try {
+          await Promise.all(
+            photos.map(async (photo) => {
+              const { path } = await uploadPhoto(
+                photo.file,
+                propertyId,
+                'task_execution',
+                taskExecution.id,
+              )
+              await supabase.from('photos').insert({
+                storage_path: path,
+                entity_type: 'task_execution' as const,
+                entity_id: taskExecution.id,
+                gps_lat: photo.gpsCoords?.latitude ?? null,
+                gps_lng: photo.gpsCoords?.longitude ?? null,
+                uploaded_by: userId,
+              })
+            }),
+          )
+        } catch (err) {
+          console.error('Photo upload failed:', err)
+          toast.error(t('checklist.photoUploadFailed'))
+        }
+      }
+
       setCompleteDialogOpen(false)
       setActiveInstructionId(null)
     },
-    [assignmentId, activeInstructionId, requestPosition, completeTask],
+    [assignmentId, activeInstructionId, propertyId, requestPosition, completeTask, t],
   )
 
   const handleSkipConfirm = useCallback(
@@ -284,8 +317,8 @@ export function ChecklistPage() {
             className={cn(
               'h-full rounded-full transition-all duration-500 ease-out',
               progressPct === 100
-                ? 'bg-coor-green-500'
-                : 'bg-coor-blue-500',
+                ? 'bg-accent-emerald-500'
+                : 'bg-primary/50',
             )}
             style={{ width: `${progressPct}%` }}
           />
@@ -325,12 +358,11 @@ export function ChecklistPage() {
         className="space-y-2"
       >
         {groups.map((group) => {
-          const color = getCategoryColor(group.ns3451Code)
           return (
             <AccordionItem
               key={group.ns3451Code}
               value={group.ns3451Code}
-              className={cn('rounded-lg border-l-4', color.border)}
+              className="border-b-0"
             >
               <AccordionTrigger className="px-3 hover:no-underline">
                 <div className="flex flex-1 items-center gap-2 pr-2">
@@ -397,7 +429,7 @@ export function ChecklistPage() {
         <button
           type="button"
           onClick={handleAvvikFabClick}
-          className="fixed bottom-20 right-4 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-coor-orange-500 text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
+          className="fixed bottom-20 right-4 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-accent-amber-500 text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
           aria-label={t('avvik.new')}
         >
           <AlertTriangle className="h-6 w-6" />

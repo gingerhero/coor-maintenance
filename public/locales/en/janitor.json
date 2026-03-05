@@ -34,7 +34,11 @@
     "skip": "Skip",
     "avvikFound": "Discrepancy found",
     "photoRequired": "Photo required",
-    "noAvvikConfirmed": "No discrepancy observed"
+    "noAvvikConfirmed": "No discrepancy observed",
+    "takePhoto": "Take photo",
+    "selectPhoto": "Choose photo",
+    "photoAdded": "{{count}} photo(s) added",
+    "photoUploadFailed": "Task completed but photo upload failed"
   },
   "skip": {
     "title": "Skip task",
